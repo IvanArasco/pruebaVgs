@@ -6,13 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Prueba técnica VGS</title>
-
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
 </head>
 
-<body class="antialiased">
-    <div>
+<body>
+    <div style="margin-left: 20%">
         @if (Route::has('login'))
         @auth
         <h2> Listado de productos de: {{Auth::user()->name}}</h2>
@@ -31,8 +31,8 @@
         @endif
 
     </div>
-
-    <div class="container">
+    <br>
+    <div style="margin-left: 20%">
         <h2>Listado</h2>
         <!-- Comprobamos si hay artículos. Si los hay, los muestra -->
         @if (Route::has('articulos'))
@@ -52,7 +52,7 @@
                         <form action="{{ route('editarArticulo', $article->id) }}" method="POST">
                             @csrf
                             @method('EDIT')
-                            <button type="submit" class="btn btn-danger">Editar</button>
+                            <button type="submit" class="btn">Editar</button>
                         </form>
                         <form action="{{ route('eliminarArticulo', $article->id) }}" method="POST">
                             @csrf
@@ -65,8 +65,8 @@
             </tbody>
         </table>
         @else
-        <h2>No existen artículos, si quieres crearlos pulsa abajo</h2>
-        <a href="{{ route('crearArticulo') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Crear
+        <h2>No existen artículos, si quieres crearlos pulsa "Crear Artículo"</h2>
+        <a href="{{ route('article.create') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Crear
             Artículo</a>
         @endif
     </div>
