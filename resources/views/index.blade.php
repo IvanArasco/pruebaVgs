@@ -50,6 +50,10 @@
                     <td>{{ $article->id }}</td>
                     <td>{{ $article->title }}</td>
                     <td>
+                        <form action="{{ route('article.show', $article->id) }}" method="GET">
+                            @csrf
+                            <button type="submit">Ver</button>
+                        </form>
                         <form action="{{ route('article.edit', $article->id) }}" method="POST">
                             @csrf
                             @method('EDIT')

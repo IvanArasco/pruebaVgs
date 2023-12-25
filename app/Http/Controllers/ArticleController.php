@@ -23,7 +23,7 @@ class ArticleController extends Controller
         if (!$article) {
             abort(404);
         }
-        return view('article.show', $article);
+        return view('articleShow', compact('article'));
     }
 
     public function crearArticulo(Request $request)

@@ -20,6 +20,8 @@ Route::get('/index', [ArticleController::class, 'index']);
 
 Route::get('/novedades', [ArticleController::class, 'indexNovedades']);
 
+Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article.show'); // show - visualizar artículo
+
 Route::get('/categoria/{slug}', function () {
     return view('index');
 });
@@ -29,8 +31,6 @@ Route::get('/article/create', function () {
 });
 
 Route::view("/article/create", "crearArticulo")->name("article.create"); // formulario de creación de un artículo
-
-Route::get('/article/{id}', 'ArticleController@show')->name('article.show'); // visualizar un artículo
 
 Route::post('/article/create',
     [ArticleController::class, 'crearArticulo'])->name('article.create'); // recibir los datos del formulario y crear el artículo
