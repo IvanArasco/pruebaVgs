@@ -34,8 +34,9 @@
     <br>
     <div style="margin-left: 20%">
         <h2>Listado</h2>
+
         <!-- Comprobamos si hay artículos. Si los hay, los muestra -->
-        @if (Route::has('articulos'))
+        @if(filled($articles))
         <table class="table">
             <thead>
                 <tr>
@@ -44,17 +45,17 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($articulos as $articulo)
+                @foreach ($articles as $article)
                 <tr>
-                    <td>{{ $articulo->id }}</td>
-                    <td>{{ $articulo->nombre }}</td>
+                    <td>{{ $article->id }}</td>
+                    <td>{{ $article->title }}</td>
                     <td>
-                        <form action="{{ route('editarArticulo', $article->id) }}" method="POST">
+                        <form action="{{ route('article.edit', $article->id) }}" method="POST">
                             @csrf
                             @method('EDIT')
-                            <button type="submit" class="btn">Editar</button>
+                            <button type="submit">Editar</button>
                         </form>
-                        <form action="{{ route('eliminarArticulo', $article->id) }}" method="POST">
+                        <form action="{{ route('article.delete', $article->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Eliminar</button>

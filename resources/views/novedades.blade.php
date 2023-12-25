@@ -16,18 +16,21 @@
     <h2> Listado de artículos del tipo: "Novedades" </h2>
 
     <div class="container mt-5">
-        @if (Route::has('articulos'))
-        <h2>Listado</h2>
-
         @foreach ($articles as $article)
-        <h2> {{ $article->title}}</h2>
-        <p> {{$article->content}}</p>
-        </hr>
+
+        <p>Nombre: {{ $article->title }}</p>
+        <p> ID: {{ $article->id }}</p>
+        Categorías:
+        @foreach ($article->categories as $articleCategory)
+        {{ $articleCategory->title}}
         @endforeach
 
-        @else
-        <h2>No existen artículos de esa categoría.</h2>
-        @endif
+        <p> Contenido: {{ $article->content }}</p>
+
+
+        @endforeach
+        </hr>
+
     </div>
 
 </body>

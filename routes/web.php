@@ -15,14 +15,10 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-Route::get('/index', function () {
-    return view('index');
-});
+Route::get('/', [ArticleController::class, 'index']);
+Route::get('/index', [ArticleController::class, 'index']);
 
-Route::get('/novedades', 'CategoryController@showNovedades')->name('novedades.index');
+Route::get('/novedades', [ArticleController::class, 'indexNovedades']);
 
 Route::get('/categoria/{slug}', function () {
     return view('index');
@@ -43,8 +39,8 @@ Route::get('/article/editArticle/{id}', 'ArticleController@editarArticulo')->nam
 
 Route::put('/article/editArticle/{id}', 'ArticleController@update')->name('article.update');
 
-Route::delete('/eliminarArticulo',
-    [ArticleController::class, 'eliminarArticulo'])->name('eliminarArticulo');
+Route::delete('/eliminarArticulo/{id}',
+    [ArticleController::class, 'eliminarArticulo'])->name('article.delete');
 
 Route::view("/login", "login")->name("login"); // Para redirigir a la vista del login
 

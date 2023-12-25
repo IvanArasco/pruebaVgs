@@ -16,9 +16,9 @@ class Article extends Model
         'slug',
     ];
 
-    public function categorias()
+    public function categories()
     {
-        return $this->belongsToMany(Categories::class)->withTimestamps();
+        return $this->belongsToMany(Categories::class)->withTimestamps()->withPivot('categories_id');
     }
     public function setSlugAttribute($value)
     {

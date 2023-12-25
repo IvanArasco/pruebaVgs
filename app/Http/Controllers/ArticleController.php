@@ -8,18 +8,17 @@ use Illuminate\Validation\Rule;
 
 class ArticleController extends Controller
 {
-
     public function index()
     {
-        $articulos = Article::all();
+        $articles = Article::all();
 
         // Pasamos los artículos a la vista
-        return view('articulos.index', ['articulos' => $articulos]);
+        return view('index', ['articles' => $articles]);
     }
 
     public function show($id)
     {
-        $article = Article::with('category')->find($id);
+        $article = Article::with('categories')->find($id);
 
         if (!$article) {
             abort(404);
@@ -46,13 +45,13 @@ class ArticleController extends Controller
 
         $categoriasSeleccionadas = $request->input('categorias', []); // cada uno de los checkboxes marcados. Si hay varias opciones crea registros para cada una.
 
-        $article->categorias()->attach($categoriasSeleccionadas);
+        $article->categories()->attach($categoriasSeleccionadas);
         // se insertan como un nuevo registro en la tabla intermedia (pivot) 
 
         return redirect('index');
     }
 
-    public function editarArticulo(Request $request, $id)
+    public function editarArticulo($id)
     {
         $article = Article::findOrFail($id);
 
@@ -72,10 +71,27 @@ class ArticleController extends Controller
 
         return redirect('index')->with('success', 'Artículo actualizado con éxito.');
     }
-    public function eliminarArticulo(Request $request, $id)
+    public function eliminarArticulo($id)
     {
         $article = Article::find($id);
-
-        $article->delete();
+        var_dump($article);
+        if ($article) {
+            $article->delete();
+            return redirect('index')->with('success', 'Artículo eliminado exitosamente.');
+        } else {
+            return redirect('index')->with('error', 'No se encontró el artículo.');
+        }
     }
+
+    public function indexNovedades()
+    {
+        // realizar la consulta directamente de los que tengan la categoria Novedades
+        $articles = Article::whereHas('categories', function ($query) {
+            $query->where('categories_id', 2);
+        })->get();
+
+        // Pasamos los artículos a la vista
+        return view('novedades', compact('articles'));
+    }
+
 }
