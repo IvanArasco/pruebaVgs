@@ -49,11 +49,13 @@
                 <tr>
                     <td>{{ $article->id }}</td>
                     <td>{{ $article->title }}</td>
+
                     <td>
-                        <form action="{{ route('article.show', $article->id) }}" method="GET">
+                        <form action="{{ route('article.show', $article->id) }}" method="POST">
                             @csrf
                             <button type="submit">Ver</button>
                         </form>
+                        @auth
                         <form action="{{ route('article.edit', $article->id) }}" method="POST">
                             @csrf
                             @method('EDIT')
@@ -64,6 +66,7 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
+                        @endauth
                     </td>
                 </tr>
                 @endforeach
