@@ -10,7 +10,7 @@ class Categories extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', // noticias, novedades y anuncios
+        'name',
         'slug',
     ];
 

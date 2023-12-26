@@ -20,24 +20,21 @@ Route::get('/index', [ArticleController::class, 'index']);
 
 Route::get('/novedades', [ArticleController::class, 'indexNovedades']);
 
-Route::post('/article/{id}', [ArticleController::class, 'show'])->name('article.show'); // show - visualizar artículo
-
-Route::get('/categoria/{slug}', function () {
-    return view('index');
-});
-
-Route::get('/article/create', function () {
-    return view('crearArticulo');
-});
-
 Route::view("/article/create", "crearArticulo")->name("article.create"); // formulario de creación de un artículo
 
 Route::post('/article/create',
     [ArticleController::class, 'crearArticulo'])->name('article.create'); // recibir los datos del formulario y crear el artículo
 
-Route::get('/article/edit/{id}', 'ArticleController@editarArticulo')->name('article.edit');
+//Route::post('/article/{id}', [ArticleController::class, 'show'])->name('article.show'); // show - visualizar artículo
+Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article.show');
 
-Route::put('/article/edit/{id}', 'ArticleController@update')->name('article.update');
+Route::get('/categoria/{slug}', function () {
+    return view('index');
+});
+
+Route::get('/article/edit/{id}', [ArticleController::class, 'editarArticulo'])->name('article.edit');
+
+Route::put('/article/edit/{id}', [ArticleController::class, 'actualizarArticulo'])->name('article.update');
 
 Route::delete('/eliminarArticulo/{id}',
     [ArticleController::class, 'eliminarArticulo'])->name('article.delete');

@@ -10,7 +10,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::paginate(2);
 
         // Pasamos los artículos a la vista
         return view('index', ['articles' => $articles]);
@@ -38,9 +38,11 @@ class ArticleController extends Controller
               ],]);
   */
         $article = new Article();
+        //dd($article);
         $article->title = $request->title;
         $article->content = $request->content;
         $article->setSlugAttribute($request->slug); //formato amigable en URL.
+
         $article->save();
 
         $categoriasSeleccionadas = $request->input('categorias', []); // cada uno de los checkboxes marcados. Si hay varias opciones crea registros para cada una.
@@ -48,14 +50,15 @@ class ArticleController extends Controller
         $article->categories()->attach($categoriasSeleccionadas);
         // se insertan como un nuevo registro en la tabla intermedia (pivot) 
 
-        return redirect('index');
+        return redirect()->route('article.show', ['id' => $article->id]);
+
     }
 
     public function editarArticulo($id)
     {
         $article = Article::findOrFail($id);
 
-        return view('editarArticulo', compact('article'));
+        return view('editArticulo', compact('article'));
     }
     public function actualizarArticulo(Request $request, $id)
     {

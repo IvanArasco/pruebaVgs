@@ -19,11 +19,15 @@
                     <h2 class="card-header">Creación de un Artículo</h2>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('actualizarArticulo', $article->id) }}">
+                        <form method="POST" action="{{ route('article.update', $article->id) }}">
                             @csrf
                             @method('PUT')
                             <div class="form-group row">
                                 <label for="title" class="col-md-4 col-form-label text-md-right">Título:</label>
+                                <div class="col-md-6">
+                                    <input id="title" type="title" class="form-control" name="title"
+                                        value="{{ $article->title }}" required autocomplete="title" autofocus>
+                                </div>
                             </div>
 
                             <div class="form-group row">

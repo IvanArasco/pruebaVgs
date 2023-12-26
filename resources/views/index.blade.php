@@ -51,16 +51,20 @@
                     <td>{{ $article->title }}</td>
 
                     <td>
-                        <form action="{{ route('article.show', $article->id) }}" method="POST">
+                        <form action="{{ route('article.show', $article->id) }}" method="GET">
                             @csrf
-                            <button type="submit">Ver</button>
+                            <button type="submit" class="btn btn-primary">Ver</button>
                         </form>
+                    </td>
+                    <td>
                         @auth
-                        <form action="{{ route('article.edit', $article->id) }}" method="POST">
+                        <form action="{{ route('article.edit', $article->id) }}" method="GET">
                             @csrf
                             @method('EDIT')
-                            <button type="submit">Editar</button>
+                            <button type="submit" class="btn btn-primary">Editar</button>
                         </form>
+                    </td>
+                    <td>
                         <form action="{{ route('article.delete', $article->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
