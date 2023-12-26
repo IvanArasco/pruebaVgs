@@ -12,14 +12,16 @@
 </head>
 
 <body>
-    <div style="margin-left: 20%">
+    <div style="margin: 5% 0 0 20%">
         @if (Route::has('login'))
         @auth
+
         <h2> Listado de productos de: {{Auth::user()->name}}</h2>
+        <a href="{{ route('article.create') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Crear
+            Artículo</a>
         <a href="{{ route('logout') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Cerrar
             sesión</a>
         @else
-        <h2> Inicia sesión para ver tus productos</h2>
         <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Iniciar Sesión</a>
 
         @if (Route::has('register'))
@@ -33,8 +35,6 @@
     </div>
     <br>
     <div style="margin-left: 20%">
-        <h2>Listado</h2>
-
         <!-- Comprobamos si hay artículos. Si los hay, los muestra -->
         @if(filled($articles))
         <table class="table">
@@ -70,20 +70,24 @@
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger">Eliminar</button>
                         </form>
-                        @endauth
+
                     </td>
+
+                    @endauth
                 </tr>
                 @endforeach
+
+
             </tbody>
         </table>
+        {{ $articles->links('pagination::bootstrap-4') }}
         @else
-        <h2>No existen artículos, si quieres crearlos pulsa "Crear Artículo"</h2>
-        <a href="{{ route('article.create') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Crear
-            Artículo</a>
+        <h2>No existen artículos.</h2>
         @endif
-    </div>
 
+    </div>
 </body>
+
 
 </html>
 

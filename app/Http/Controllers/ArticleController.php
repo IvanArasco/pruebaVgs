@@ -10,7 +10,7 @@ class ArticleController extends Controller
 {
     public function index()
     {
-        $articles = Article::paginate(2);
+        $articles = Article::paginate(5);
 
         // Pasamos los artículos a la vista
         return view('index', ['articles' => $articles]);
