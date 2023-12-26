@@ -34,18 +34,18 @@ class ArticleController extends Controller
             'slug' => [
                 'required',
                 'alpha_dash', // Asegura que el slug solo contenga letras, números, guiones y guiones bajos
-                Rule::unique('articles', 'slug'), // Asegura que el slug sea único en la tabla 'articulos'
+                Rule::unique('articles', 'slug'), // Asegura que el slug sea único en la tabla 'articles'
             ],]);
 
         $article = new Article();
-        //dd($article);
         $article->title = $request->title;
         $article->content = $request->content;
         $article->setSlugAttribute($request->slug); //formato amigable en URL.
 
         $article->save();
 
-        $categoriasSeleccionadas = $request->input('categorias', []); // cada uno de los checkboxes marcados. Si hay varias opciones crea registros para cada una.
+        $categoriasSeleccionadas = $request->input('categorias', []);
+        // cada uno de los checkboxes marcados. Si hay varias opciones crea registros para cada una.
 
         $article->categories()->attach($categoriasSeleccionadas);
         // se insertan como un nuevo registro en la tabla intermedia (pivot) 
@@ -64,11 +64,11 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
 
-        /* $request->validate([
-             'title' => 'required|max:255',
-             'content' => 'required',
-             'slug' => 'required',
-         ]);*/
+        $request->validate([
+            'title' => 'required|max:255',
+            'content' => 'required',
+            'slug' => 'required',
+        ]);
 
         $article->update($request->all());
 
