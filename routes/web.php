@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 
@@ -15,39 +16,40 @@ use App\Http\Controllers\LoginController;
 |
 */
 
+
 Route::get('/', [ArticleController::class, 'index']);
+
 Route::get('/index', [ArticleController::class, 'index']);
 
-Route::get('/novedades', [ArticleController::class, 'indexNovedades']);
+Route::get('/novedades', [ArticleController::class, 'indexNovedades']); // ver todos los artículos de la categoría novedades
 
 Route::view("/article/create", "crearArticulo")->name("article.create"); // formulario de creación de un artículo
 
 Route::post('/article/create',
-    [ArticleController::class, 'crearArticulo'])->name('article.create'); // recibir los datos del formulario y crear el artículo
+    [ArticleController::class, 'crearArticulo'])->name('article.create'); // Recibir los datos del formulario y crear el artículo
 
-//Route::post('/article/{id}', [ArticleController::class, 'show'])->name('article.show'); // show - visualizar artículo
-Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article.show');
+Route::get('/categoria/{slug}', [CategoryController::class, 'showWithSlug'])->name('article.show'); // visualización artículo a través de categorias. Se manda encima del otro show por que no de conflicto
 
-Route::get('/categoria/{slug}', function () {
-    return view('index');
-});
+Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article.show'); // visualización artículo
 
-Route::get('/article/edit/{id}', [ArticleController::class, 'editarArticulo'])->name('article.edit');
+Route::get('/article/edit/{id}', [ArticleController::class, 'editarArticulo'])->name('article.edit'); // edición articulo
 
-Route::put('/article/edit/{id}', [ArticleController::class, 'actualizarArticulo'])->name('article.update');
+Route::put('/article/edit/{id}', [ArticleController::class, 'actualizarArticulo'])->name('article.update'); // procesar cambios artículo
 
 Route::delete('/eliminarArticulo/{id}',
-    [ArticleController::class, 'eliminarArticulo'])->name('article.delete');
+    [ArticleController::class, 'eliminarArticulo'])->name('article.delete'); // eliminación artículo
 
-Route::view("/login", "login")->name("login"); // Para redirigir a la vista del login
+// Rutas de autenticación
 
-Route::view("/register", "register")->name("register");
+Route::view("/login", "login")->name("login"); // formulario login
+
+Route::view("/register", "register")->name("register"); // formulario nuevo usuario
 
 Route::post('/register',
-    [LoginController::class, 'register'])->name('register'); // Para el method = post del formulario "registrar"
+    [LoginController::class, 'register'])->name('register'); // procesar nuevo usuario
 
 Route::post('/iniciarSesion',
-    [LoginController::class, 'login'])->name('iniciarSesion');
+    [LoginController::class, 'login'])->name('iniciarSesion'); // procesar login
 
 Route::get('/logout)',
-    [LoginController::class, 'logout'])->name('logout');
+    [LoginController::class, 'logout'])->name('logout'); // cerrar sesión

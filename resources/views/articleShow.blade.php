@@ -7,31 +7,43 @@
 
     <title>Prueba técnica VGS</title>
 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
 </head>
 
 <body class="antialiased">
+    <div class="container mt-5" style="margin: 30px 0 50px 100px">
+        <h2> Vista del artículo: {{ $article->title }}</h2>
 
-    <h2> Vista del artículo: {{ $article->title }}</h2>
 
-    <div class="container mt-5">
-        <p>Nombre: {{ $article->title }}</p>
-        <p> ID: {{ $article->id }}</p>
-        Categorías:
-        @foreach ($article->categories as $articleCategory)
-        {{ $articleCategory->title}}
-        @endforeach
-        <p> Contenido: {{ $article->content }}</p>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Categorías</th>
+                    <th>Contenido</th>
+                </tr>
+            </thead>
+            <tbody>
 
-        </hr>
+                <tr>
+                    <td>{{ $article->id }}</td>
+                    <td>{{ $article->title }}</td>
+                    <td>
+                        @foreach ($article->categories as $articleCategory)
+                        {{ $articleCategory->title}}
+                        @endforeach
+                    </td>
+                    <td> {{ $article->content }} </td>
+                </tr>
+
+            </tbody>
+        </table>
 
     </div>
 
 </body>
-
-</html>
-
-</html>
 
 </html>

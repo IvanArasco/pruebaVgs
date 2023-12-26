@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <div style="margin: 5% 0 0 20%">
+    <div style="margin: 30px 0 50px 100px">
         @if (Route::has('login'))
         @auth
 
@@ -32,65 +32,60 @@
         @endauth
         @endif
 
-    </div>
-    <br>
-    <div style="margin-left: 20%">
-        <!-- Comprobamos si hay artículos. Si los hay, los muestra -->
-        @if(filled($articles))
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($articles as $article)
-                <tr>
-                    <td>{{ $article->id }}</td>
-                    <td>{{ $article->title }}</td>
+        <div>
+            <!-- Comprobamos si hay artículos. Si los hay, los muestra -->
+            @if(filled($articles))
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($articles as $article)
+                    <tr>
+                        <td>{{ $article->id }}</td>
+                        <td>{{ $article->title }}</td>
 
-                    <td>
-                        <form action="{{ route('article.show', $article->id) }}" method="GET">
-                            @csrf
-                            <button type="submit" class="btn btn-primary">Ver</button>
-                        </form>
-                    </td>
-                    <td>
-                        @auth
-                        <form action="{{ route('article.edit', $article->id) }}" method="GET">
-                            @csrf
-                            @method('EDIT')
-                            <button type="submit" class="btn btn-primary">Editar</button>
-                        </form>
-                    </td>
-                    <td>
-                        <form action="{{ route('article.delete', $article->id) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Eliminar</button>
-                        </form>
+                        <td>
+                            <div class="btn-group" role="group">
+                                <form action="{{ route('article.show', $article->id) }}" method="GET">
+                                    @csrf
+                                    <button type="submit" class="btn btn-info">Ver</button>
+                                </form>
 
-                    </td>
+                                @auth
+                                <form action="{{ route('article.edit', $article->id) }}" method="GET">
+                                    @csrf
+                                    @method('EDIT')
+                                    <button type="submit" class="btn btn-primary">Editar</button>
+                                </form>
 
-                    @endauth
-                </tr>
-                @endforeach
+                                <form action="{{ route('article.delete', $article->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                                </form>
+                                @endauth
+                            </div>
+                        </td>
 
 
-            </tbody>
-        </table>
-        {{ $articles->links('pagination::bootstrap-4') }}
-        @else
-        <h2>No existen artículos.</h2>
-        @endif
+                    </tr>
+                    @endforeach
 
+
+                </tbody>
+            </table>
+            {{ $articles->links('pagination::bootstrap-4') }}
+            @else
+            <h2>No existen artículos.</h2>
+            @endif
+
+        </div>
     </div>
 </body>
-
-
-</html>
-
-</html>
 
 </html>
