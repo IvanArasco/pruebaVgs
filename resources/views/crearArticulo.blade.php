@@ -15,6 +15,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6" style="margin-top: 20%">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <div class=" card">
                     <h2 class="card-header">Creación de un Artículo</h2>
 

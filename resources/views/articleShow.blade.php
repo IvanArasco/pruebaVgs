@@ -24,6 +24,7 @@
                     <th>Nombre</th>
                     <th>Categorías</th>
                     <th>Contenido</th>
+                    <th>Slug</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +38,7 @@
                         @endforeach
                     </td>
                     <td> {{ $article->content }} </td>
+                    <td> {{ $article->slug }} </td>
                 </tr>
 
             </tbody>

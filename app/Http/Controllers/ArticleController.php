@@ -28,15 +28,15 @@ class ArticleController extends Controller
 
     public function crearArticulo(Request $request)
     {
-        /*  $request->validate([
-              'title' => 'required',
-              'content' => 'required',
-              'slug' => [
-                  'required',
-                  'alpha_dash', // Asegura que el slug solo contenga letras, números, guiones y guiones bajos
-                  Rule::unique('articles', 'slug'), // Asegura que el slug sea único en la tabla 'articulos'
-              ],]);
-  */
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required',
+            'slug' => [
+                'required',
+                'alpha_dash', // Asegura que el slug solo contenga letras, números, guiones y guiones bajos
+                Rule::unique('articles', 'slug'), // Asegura que el slug sea único en la tabla 'articulos'
+            ],]);
+
         $article = new Article();
         //dd($article);
         $article->title = $request->title;
