@@ -15,7 +15,7 @@ return new class extends Migration {
     {
         Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('name');
             $table->string('slug');
             $table->timestamps();
         });
@@ -25,7 +25,7 @@ return new class extends Migration {
         for ($i = 1; $i <= 3; $i++) {
             DB::table('categories')->insert([
                 'id' => $i,
-                'title' => $titulosCategorias[$i - 1],
+                'name' => $titulosCategorias[$i - 1],
                 'slug' => $titulosCategorias[$i - 1],
                 'created_at' => now(),
                 'updated_at' => now(),

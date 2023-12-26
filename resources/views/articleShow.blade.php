@@ -34,7 +34,7 @@
                     <td>{{ $article->title }}</td>
                     <td>
                         @foreach ($article->categories as $articleCategory)
-                        {{ $articleCategory->title}}
+                        {{ $articleCategory->name}}
                         @endforeach
                     </td>
                     <td> {{ $article->content }} </td>

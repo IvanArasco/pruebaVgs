@@ -51,13 +51,16 @@
 
                         <td>
                             <div class="btn-group" role="group">
-                                <form action="{{ route('article.show', $article->id) }}" method="GET">
+                                <form action="{{ route('article.show', $article->id) }}" method="POST">
+
+                                    <input type="hidden" name="_method" value="GET">
                                     @csrf
                                     <button type="submit" class="btn btn-info">Ver</button>
                                 </form>
 
                                 @auth
-                                <form action="{{ route('article.edit', $article->id) }}" method="GET">
+                                <form action="{{ route('article.edit', $article->id) }}" method="POST">
+                                    <input type="hidden" name="_method" value="GET">
                                     @csrf
                                     <button type="submit" class="btn btn-primary">Editar</button>
                                 </form>

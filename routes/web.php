@@ -27,9 +27,9 @@ Route::view("/article/create", "crearArticulo")->name("article.create"); // form
 Route::post('/article/create',
     [ArticleController::class, 'crearArticulo'])->name('article.create'); // Recibir los datos del formulario y crear el artículo
 
-Route::get('/categoria/{slug}', [CategoryController::class, 'showWithSlug'])->name('article.show'); // visualización artículo a través de categorias. Se manda encima del otro show por que no de conflicto
-
 Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article.show'); // visualización artículo
+
+Route::get('/{categoria}/{slug}', [ArticleController::class, 'showWithSlug'])->name('article.showWithSlug'); // visualización artículo a través de categorias. Se manda encima del otro show por que no de conflicto
 
 Route::put('/article/edit/{id}', [ArticleController::class, 'update'])->name('article.update'); // procesar cambios artículo
 

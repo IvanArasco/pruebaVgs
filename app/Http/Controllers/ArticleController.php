@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
+use App\Models\Categories;
 use Illuminate\Validation\Rule;
 
 class ArticleController extends Controller
@@ -26,6 +27,19 @@ class ArticleController extends Controller
         return view('articleShow', compact('article'));
     }
 
+    public function showWithSlug($category_name, $slug)
+    {
+
+        $article = Article::where('slug', $slug)->first();
+
+        if (!$article) {
+            abort(404);
+        }
+
+        return view('articleShow', compact('article'));
+    }
+
+
     public function crearArticulo(Request $request)
     {
         $request->validate([
@@ -33,14 +47,15 @@ class ArticleController extends Controller
             'content' => 'required',
             'slug' => [
                 'required',
-                'alpha_dash', // Asegura que el slug solo contenga letras, números, guiones y guiones bajos
+                // 'alpha_dash', // Asegura que el slug solo contenga letras, números, guiones y guiones bajos. 
+                //  Tiene un método que lo reemplaza para evitar obligar al usuario por si no sabe
                 Rule::unique('articles'), // Asegura que el slug sea único en la tabla 'articles'
             ],]);
 
         $article = new Article();
         $article->title = $request->title;
         $article->content = $request->content;
-        $article->setSlugAttribute($request->slug); //formato amigable en URL.
+        $article->setSlugAttribute($request->slug); // formatea el Slug en función de los estándares.
 
         $article->save();
 

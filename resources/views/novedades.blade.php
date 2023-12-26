@@ -7,6 +7,7 @@
 
     <title>Prueba técnica VGS</title>
 
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
 </head>
@@ -24,19 +25,12 @@
         @foreach ($article->categories as $articleCategory)
         {{ $articleCategory->title}}
         @endforeach
-
         <p> Contenido: {{ $article->content }}</p>
-
-
         @endforeach
         </hr>
 
     </div>
 
 </body>
-
-</html>
-
-</html>
 
 </html>
