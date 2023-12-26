@@ -59,7 +59,6 @@
                                 @auth
                                 <form action="{{ route('article.edit', $article->id) }}" method="GET">
                                     @csrf
-                                    @method('EDIT')
                                     <button type="submit" class="btn btn-primary">Editar</button>
                                 </form>
 

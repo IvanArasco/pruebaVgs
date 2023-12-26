@@ -15,6 +15,15 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <div class="card">
                     <h2 class="card-header">Edición de un Artículo</h2>
 
@@ -25,7 +34,7 @@
                             <div class="form-group row">
                                 <label for="title" class="col-md-4 col-form-label text-md-right">Título:</label>
                                 <div class="col-md-6">
-                                    <input id="title" type="title" class="form-control" name="title"
+                                    <input id="title" type="text" class="form-control" name="title"
                                         value="{{ $article->title }}" required autocomplete="title" autofocus>
                                 </div>
                             </div>
@@ -34,7 +43,7 @@
                                 <label for="content" class="col-md-4 col-form-label text-md-right"> Contenido </label>
 
                                 <div class="col-md-6">
-                                    <input id="content" type="title" class="form-control" name="content"
+                                    <input id="content" type="text" class="form-control" name="content"
                                         value="{{ $article->content }}" required autocomplete="content" autofocus>
                                 </div>
 
@@ -44,8 +53,8 @@
                                 <label for="content" class="col-md-4 col-form-label text-md-right"> Slug </label>
 
                                 <div class="col-md-6">
-                                    <input id="content" type="title" class="form-control" name="content"
-                                        value="{{ $article->slug }}" required autocomplete="content" autofocus>
+                                    <input id="slug" type="text" class="form-control" name="slug"
+                                        value="{{ $article->slug }}" required autocomplete="slug" autofocus>
                                 </div>
 
                             </div>

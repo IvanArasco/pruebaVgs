@@ -16,7 +16,6 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-
 Route::get('/', [ArticleController::class, 'index']);
 
 Route::get('/index', [ArticleController::class, 'index']);
@@ -32,9 +31,9 @@ Route::get('/categoria/{slug}', [CategoryController::class, 'showWithSlug'])->na
 
 Route::get('/article/{id}', [ArticleController::class, 'show'])->name('article.show'); // visualización artículo
 
-Route::get('/article/edit/{id}', [ArticleController::class, 'editarArticulo'])->name('article.edit'); // edición articulo
+Route::put('/article/edit/{id}', [ArticleController::class, 'update'])->name('article.update'); // procesar cambios artículo
 
-Route::put('/article/edit/{id}', [ArticleController::class, 'actualizarArticulo'])->name('article.update'); // procesar cambios artículo
+Route::get('/article/edit/{id}', [ArticleController::class, 'editarArticulo'])->name('article.edit'); // edición articulo
 
 Route::delete('/eliminarArticulo/{id}',
     [ArticleController::class, 'eliminarArticulo'])->name('article.delete'); // eliminación artículo

@@ -29,12 +29,12 @@ class ArticleController extends Controller
     public function crearArticulo(Request $request)
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:255',
             'content' => 'required',
             'slug' => [
                 'required',
                 'alpha_dash', // Asegura que el slug solo contenga letras, números, guiones y guiones bajos
-                Rule::unique('articles', 'slug'), // Asegura que el slug sea único en la tabla 'articles'
+                Rule::unique('articles'), // Asegura que el slug sea único en la tabla 'articles'
             ],]);
 
         $article = new Article();
@@ -60,14 +60,19 @@ class ArticleController extends Controller
 
         return view('editArticulo', compact('article'));
     }
-    public function actualizarArticulo(Request $request, $id)
+    public function update(Request $request, $id)
     {
+
         $article = Article::findOrFail($id);
 
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'slug' => 'required',
+            'slug' => [
+                'required',
+                'alpha_dash', // Asegura que el slug solo contenga letras, números, guiones y guiones bajos
+                Rule::unique('articles')->ignore($id), // Asegura que el slug sea único en la tabla 'articles sin contar con el elemento actual'
+            ]
         ]);
 
         $article->update($request->all());
