@@ -30,15 +30,28 @@ class ArticleController extends Controller
     public function showWithSlug($category_name, $slug)
     {
 
-        $article = Article::where('slug', $slug)->first();
+        // recibir el ID de la categoría a traves del nombre pasado como parámetro (por la URL)
+        $categoria = Categories::where('name', $category_name)->first();
 
-        if (!$article) {
+        if ($categoria) {
+            $idCategoria = $categoria->id;
+
+            /* mirarlo en la tabla pivot y devolver cada uno de los IDS de artículos que tienen esa categoryID.
+            y recibir tan solo el artículo que tiene ese slug. */
+
+            $article = Article::whereHas('categories', function ($query) use ($idCategoria) {
+                $query->where('categories_id', $idCategoria);
+            })->where('slug', $slug)->first();
+
+            if (!$article) {
+                abort(404);
+            }
+            return view('articleShow', compact('article'));
+        } else {
             abort(404);
         }
 
-        return view('articleShow', compact('article'));
     }
-
 
     public function crearArticulo(Request $request)
     {
