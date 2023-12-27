@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Article;
-use App\Models\Categories;
+use App\Models\Category;
 
 class ArticleFactory extends Factory
 {
@@ -24,7 +24,7 @@ class ArticleFactory extends Factory
     public function configure()
     {
         return $this->afterCreating(function (Article $article) {
-            $categoryIds = Categories::all()->random(2)->pluck('id')->toArray();
+            $categoryIds = Category::all()->random(2)->pluck('id')->toArray();
             $article->categories()->attach($categoryIds);
         });
     }

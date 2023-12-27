@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Article;
-use App\Models\Categories;
+use App\Models\Category;
 use Illuminate\Validation\Rule;
 
 class ArticleController extends Controller
@@ -31,7 +31,7 @@ class ArticleController extends Controller
     {
 
         // recibir el ID de la categoría a traves del nombre pasado como parámetro (por la URL)
-        $categoria = Categories::where('name', $category_name)->first();
+        $categoria = Category::where('name', $category_name)->first();
 
         if ($categoria) {
             $idCategoria = $categoria->id;
@@ -40,7 +40,7 @@ class ArticleController extends Controller
             y recibir tan solo el artículo que tiene ese slug. */
 
             $article = Article::whereHas('categories', function ($query) use ($idCategoria) {
-                $query->where('categories_id', $idCategoria);
+                $query->where('category_id', $idCategoria);
             })->where('slug', $slug)->first();
 
             if (!$article) {
@@ -73,7 +73,7 @@ class ArticleController extends Controller
         $article->save();
 
         $categoriasSeleccionadas = $request->input('categorias', []);
-        // cada uno de los checkboxes marcados. Si hay varias opciones crea registros para cada una.
+        // cada uno de los checkboxes marcados. Si hay varias opciones creará registros para cada una.
 
         $article->categories()->attach($categoriasSeleccionadas);
         // se insertan como un nuevo registro en la tabla intermedia (pivot) 
@@ -98,11 +98,12 @@ class ArticleController extends Controller
             'content' => 'required',
             'slug' => [
                 'required',
-                'alpha_dash', // Asegura que el slug solo contenga letras, números, guiones y guiones bajos
+                // 'alpha_dash', // Asegura que el slug solo contenga letras, números, guiones y guiones bajos. 
                 Rule::unique('articles')->ignore($id), // Asegura que el slug sea único en la tabla 'articles sin contar con el elemento actual'
             ]
         ]);
 
+        $article->setSlugAttribute($request->slug);
         $article->update($request->all());
 
         return redirect('index')->with('success', 'Artículo actualizado con éxito.');
@@ -110,7 +111,6 @@ class ArticleController extends Controller
     public function eliminarArticulo($id)
     {
         $article = Article::find($id);
-        var_dump($article);
         if ($article) {
             $article->delete();
             return redirect('index')->with('success', 'Artículo eliminado exitosamente.');
@@ -123,11 +123,12 @@ class ArticleController extends Controller
     {
         // realizar la consulta directamente de los que tengan la categoria Novedades
         $articles = Article::whereHas('categories', function ($query) {
-            $query->where('categories_id', 2);
+            $query->where('category_id', 2);
         })->get();
 
         // Pasamos los artículos a la vista
         return view('novedades', compact('articles'));
     }
+
 
 }

@@ -11,8 +11,6 @@ class LoginController extends Controller
 {
     public function register(Request $request)
     {
-
-        //falta validación.
         $user = new User();
         $user->name = $request->name;
         $user->email = $request->email;
@@ -27,7 +25,6 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {
-        //validación
         $credentials = [
             "email" => $request->email,
             "password" => $request->password
@@ -35,7 +32,6 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            //ir a la ruta que intentabas entrar pero el middleware te redirigió al login
             return redirect()->intended();
         } else {
             return redirect("login");
