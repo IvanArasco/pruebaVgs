@@ -13,20 +13,35 @@
 </head>
 
 <body class="antialiased">
-
-    <h2> Listado de artículos del tipo: "Novedades" </h2>
-
     <div class="container mt-5">
-        @foreach ($articles as $article)
+        <h2> Listado de artículos del tipo: "Novedades" </h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Categorías</th>
+                    <th>Contenido</th>
+                    <th>Slug</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($articles as $article)
+                <tr>
+                    <td>{{ $article->id }}</td>
+                    <td>{{ $article->title }}</td>
+                    <td>
+                        @foreach ($article->categories as $articleCategory)
+                        {{ $articleCategory->name}}
+                        @endforeach
+                    </td>
+                    <td> {{ $article->content }} </td>
+                    <td> {{ $article->slug }} </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
 
-        <p>Nombre: {{ $article->title }}</p>
-        <p> ID: {{ $article->id }}</p>
-        Categorías:
-        @foreach ($article->categories as $articleCategory)
-        {{ $articleCategory->title}}
-        @endforeach
-        <p> Contenido: {{ $article->content }}</p>
-        @endforeach
         </hr>
 
     </div>
