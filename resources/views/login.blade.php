@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Proyecto Laravel</title>
+    <title>Prueba técnica VGS</title>
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -24,7 +24,7 @@
                             @csrf
 
                             <div class="form-group row">
-                                <label for="email" class="col-md-4 col-form-label text-md-right">Correo
+                                <label class="col-md-4 col-form-label text-md-right">Correo
                                     Electrónico:</label>
 
                                 <div class="col-md-6">
@@ -34,12 +34,11 @@
                             </div>
 
                             <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right"> Contraseña:
+                                <label class="col-md-4 col-form-label text-md-right"> Contraseña:
                                 </label>
 
                                 <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password" required
-                                        autocomplete="current-password">
+                                    <input id="password" type="password" class="form-control" name="password" required>
                                 </div>
                             </div>
 
@@ -52,8 +51,6 @@
                                 </div>
                             </div>
                         </form>
-
-
                     </div>
                 </div>
             </div>

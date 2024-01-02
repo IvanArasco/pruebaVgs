@@ -55,28 +55,23 @@ class ArticleController extends Controller
 
     public function crearArticulo(Request $request)
     {
+        // cada uno de los checkboxes marcados. Si hay varias opciones creará registros para cada una.
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'slug' => [
-                'required',
-                // 'alpha_dash', // Asegura que el slug solo contenga letras, números, guiones y guiones bajos. 
-                //  Tiene un método que lo reemplaza para evitar obligar al usuario por si no sabe
-                Rule::unique('articles'), // Asegura que el slug sea único en la tabla 'articles'
-            ],]);
+            'categorias' => 'required',
+        ]);
 
         $article = new Article();
         $article->title = $request->title;
         $article->content = $request->content;
-        $article->setSlugAttribute($request->slug); // formatea el Slug en función de los estándares.
+        $article->setSlugAttribute($request->title); // formatea el Slug en función de los estándares.
 
         $article->save();
 
         $categoriasSeleccionadas = $request->input('categorias', []);
-        // cada uno de los checkboxes marcados. Si hay varias opciones creará registros para cada una.
 
-        $article->categories()->attach($categoriasSeleccionadas);
-        // se insertan como un nuevo registro en la tabla intermedia (pivot) 
+        $article->categories()->attach($categoriasSeleccionadas); // se insertan como un nuevo registro en la tabla intermedia (pivot) 
 
         return redirect()->route('article.show', ['id' => $article->id]);
 
@@ -96,17 +91,15 @@ class ArticleController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
-            'slug' => [
-                'required',
-                // 'alpha_dash', // Asegura que el slug solo contenga letras, números, guiones y guiones bajos. 
-                Rule::unique('articles')->ignore($id), // Asegura que el slug sea único en la tabla 'articles sin contar con el elemento actual'
-            ]
+            'categorias' => 'required',
         ]);
 
-        $article->setSlugAttribute($request->slug);
+        $article->setSlugAttribute($request->title);
+        $categoriasSeleccionadas = $request->input('categorias', []);
+        $article->categories()->sync($categoriasSeleccionadas);
         $article->update($request->all());
 
-        return redirect('index')->with('success', 'Artículo actualizado con éxito.');
+        return redirect('index');
     }
     public function eliminarArticulo($id)
     {

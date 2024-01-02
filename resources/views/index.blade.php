@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Prueba técnica VGS</title>
+
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
@@ -16,7 +17,7 @@
         @if (Route::has('login'))
         @auth
 
-        <h2> Listado de productos de: {{Auth::user()->name}}</h2>
+        <h2> Bienvenid@ {{Auth::user()->name}}</h2>
         <a href="{{ route('article.create') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Crear
             Artículo</a>
         <a href="{{ route('logout') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Cerrar
@@ -52,7 +53,6 @@
                         <td>
                             <div class="btn-group" role="group">
                                 <form action="{{ route('article.show', $article->id) }}" method="POST">
-
                                     <input type="hidden" name="_method" value="GET">
                                     @csrf
                                     <button type="submit" class="btn btn-info">Ver</button>
@@ -73,12 +73,8 @@
                                 @endauth
                             </div>
                         </td>
-
-
                     </tr>
                     @endforeach
-
-
                 </tbody>
             </table>
             {{ $articles->links('pagination::bootstrap-4') }}

@@ -5,8 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Proyecto Laravel</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Prueba técnica VGS</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
 </head>
@@ -31,39 +32,31 @@
                         <form method="POST" action="{{ route('article.create') }}">
                             @csrf
                             <div class="form-group row">
-                                <label for="title" class="col-md-4 col-form-label text-md-right"> Título: </label>
+                                <label class="col-md-4 col-form-label text-md-right"> Título: </label>
                                 <div class="col-md-6">
-                                    <input id=" title" type="title" class="form-control" name="title" required
-                                        autocomplete="content" autofocus>
+                                    <input id=" title" type="title" class="form-control" name="title"
+                                        value="{{ old('title') }}" autocomplete="title" autofocus>
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <label for="title" class="col-md-4 col-form-label text-md-right">Categoría:</label>
+                                <label class="col-md-4 col-form-label text-md-right">Categoría:</label>
                                 <div style="align-self: center">
-                                    <input type="checkbox" name="categorias[]" value=1> Noticias
-                                    <input type="checkbox" name="categorias[]" value=2> Novedades
-                                    <input type="checkbox" name="categorias[]" value=3> Anuncios
+                                    <input type="checkbox" name="categorias[]" value=1 {{ in_array(1, old('categorias',
+                                        [])) ? 'checked' : '' }}> Noticias
+                                    <input type="checkbox" name="categorias[]" value=2 {{ in_array(2, old('categorias',
+                                        [])) ? 'checked' : '' }}> Novedades
+                                    <input type="checkbox" name="categorias[]" value=3 {{ in_array(3, old('categorias',
+                                        [])) ? 'checked' : '' }}> Anuncios
                                 </div>
                             </div>
 
-
                             <div class="form-group row">
-                                <label for="content" class="col-md-4 col-form-label text-md-right"> Contenido: </label>
+                                <label class="col-md-4 col-form-label text-md-right"> Contenido: </label>
 
                                 <div class="col-md-6">
-                                    <input id="content" type="title" class="form-control" name="content" required
-                                        autocomplete="content" autofocus>
-                                </div>
-
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="slug" class="col-md-4 col-form-label text-md-right"> Slug: </label>
-
-                                <div class="col-md-6">
-                                    <input id="slug" type="title" class="form-control" name="slug" required
-                                        autocomplete="slug" autofocus>
+                                    <input id="content" type="title" class="form-control" name="content"
+                                        value="{{ old('content') }}" autocomplete="content" autofocus>
                                 </div>
 
                             </div>
