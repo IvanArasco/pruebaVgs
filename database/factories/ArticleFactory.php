@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Article;
 use App\Models\Category;
+use Illuminate\Support\Str;
 
 class ArticleFactory extends Factory
 {
@@ -12,11 +13,11 @@ class ArticleFactory extends Factory
 
     public function definition()
     {
-
+        $title = $this->faker->sentence;
         return [
-            'title' => $this->faker->sentence,
+            'title' => $title,
             'content' => $this->faker->paragraph,
-            'slug' => $this->faker->sentence,
+            'slug' => Str::slug($title), // para que el slug se base en el title
         ];
 
     }

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Article;
 use App\Models\Category;
-use Illuminate\Validation\Rule;
 
 class ArticleController extends Controller
 {
@@ -65,7 +64,7 @@ class ArticleController extends Controller
         $article = new Article();
         $article->title = $request->title;
         $article->content = $request->content;
-        $article->setSlugAttribute($request->title); // formatea el Slug en función de los estándares.
+        $article->setSlugAttribute($article->title); // formatea el Slug en función de los estándares.
 
         $article->save();
 
@@ -106,9 +105,9 @@ class ArticleController extends Controller
         $article = Article::find($id);
         if ($article) {
             $article->delete();
-            return redirect('index')->with('success', 'Artículo eliminado exitosamente.');
+            return redirect('index');
         } else {
-            return redirect('index')->with('error', 'No se encontró el artículo.');
+            abort(404);
         }
     }
 
